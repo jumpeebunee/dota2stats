@@ -1,4 +1,5 @@
 <script lang='ts'>
+	import '.././theme/normolize.css'
 	import { setupIonicBase } from 'ionic-svelte';
 
 	/* Call Ionic's setup routine */
