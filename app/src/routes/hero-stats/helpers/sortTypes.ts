@@ -19,8 +19,10 @@ export const sortTypes = {
 	},
 	Win: (sortType: string) => {
 		if (sortType === 'asc') {
-			return (a: Hero, b: Hero) => b.pro_win - a.pro_win;
+			return (a: Hero, b: Hero) =>
+				Math.floor((b.pro_win / b.pro_pick) * 100) - Math.floor((a.pro_win / a.pro_pick) * 100);
 		}
-		return (a: Hero, b: Hero) => a.pro_win - b.pro_win;
+		return (a: Hero, b: Hero) =>
+			Math.floor((a.pro_win / a.pro_pick) * 100) - Math.floor((b.pro_win / b.pro_pick) * 100);
 	}
 };

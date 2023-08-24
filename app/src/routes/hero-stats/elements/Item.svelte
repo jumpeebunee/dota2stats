@@ -30,7 +30,10 @@
 	</div>
 
 	<div class="matches description">
-		{hero.pro_win}
+		<div>
+			{Math.floor((hero.pro_win / hero.pro_pick) * 100)}%
+		</div>
+		<div class="subtitle">{hero.pro_win} wins</div>
 	</div>
 </li>
 
@@ -40,6 +43,9 @@
 		grid-template-columns: 0.5fr 1.5fr 1fr 1fr 1fr 1fr;
 		align-items: center;
 		padding-bottom: 1rem;
+		margin-bottom: 1rem;
+		width: 100%;
+		border-bottom: solid 1px #647081;
 	}
 
 	.image {
@@ -58,10 +64,16 @@
 		flex-shrink: 0;
 	}
 
+	.subtitle {
+		font-size: 16px;
+	}
+
 	.matches {
 		display: flex;
 		align-items: center;
 		justify-content: center;
+		flex-direction: column;
+		gap: 5px;
 		flex-shrink: 0;
 	}
 
@@ -72,6 +84,7 @@
 
 	@media (max-width: 780px) {
 		.item {
+			width: 690px;
 			grid-template-columns: 50px 200px 150px 100px 100px 100px;
 		}
 	}
