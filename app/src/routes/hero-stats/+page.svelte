@@ -1,15 +1,12 @@
 <script lang="ts">
+	import Header from '$lib/Header.svelte';
 	import type { PageData } from './$types';
-	import Item from './elements/Item.svelte';
-	import NavItem from './elements/NavItem.svelte';
 	import { sortTypes } from './helpers/sortTypes';
 
 	export let data: PageData;
 
 	let currentType = '';
 	let sortType: 'asc' | 'desc' = 'asc';
-
-	let isBurgerOpen = false;
 
 	const types = ['BanPick', 'Pick', 'Ban', 'Win'];
 
@@ -20,190 +17,98 @@
 		currentType = sort;
 	};
 
-	const openBurger = (status: boolean) => {
-		if (status) {
-			document.body.style.position = 'fixed';
-		}
-		isBurgerOpen = status;
-	};
-
 	$: sorted = data.heroes;
 </script>
 
 <ion-content>
-	<div
-		on:click={() => openBurger(false)}
-		on:keydown
-		role="menu"
-		tabindex={null}
-		class:burger-menu-wrapper_open={isBurgerOpen}
-		class="burger-menu-wrapper"
-	>
-		<div
-			on:keydown
-			role="menu"
-			tabindex={null}
-			on:click|preventDefault|stopPropagation
-			class="burger-menu"
-		>
-			<div>Coming soon...</div>
-			<button on:click={() => openBurger(false)} class="close" />
-		</div>
-	</div>
-
 	<div class="wrapper">
-		<div class="header">
-			<div class="logo">
-				<div class="icon" />
-				<div class="caption">Hero stats</div>
-			</div>
-
-			<button on:click={() => openBurger(true)} class="burger" />
-		</div>
-
+		<Header />
 		<div class="content">
-			<div class="menu">
-				<button class="title">Hero</button>
+			<div class="tabs">
+				<div class="tab">Hero</div>
 
 				{#each types as type}
-					<NavItem on:click={() => changeSort(type)} {type} {sortType} {currentType} />
+					<div class="tab"><button on:click={() => changeSort(type)}>{type}</button></div>
 				{/each}
 			</div>
 
-			<ul class="list">
-				{#each sorted as hero}
-					<Item {hero} />
-				{/each}
-			</ul>
+			{#each sorted as hero, i}
+				<div class:tabs-filled={i % 2 === 0} class="tabs hero-tabs">
+					<div class="tab">
+						<img src="https://cdn.cloudflare.steamstatic.com{hero.img}" alt="" />
+					</div>
+
+					<div class="tab">{(hero.pro_pick || 0) + (hero.pro_ban || 0)}</div>
+					<div class="tab">{hero.pro_pick}</div>
+					<div class="tab">{hero.pro_ban}</div>
+
+					<div class="tab tab-win">
+						<div>
+							{Math.floor((hero.pro_win / hero.pro_pick) * 100)}%
+						</div>
+						<div class="subtitle">{hero.pro_win} wins</div>
+					</div>
+				</div>
+			{/each}
 		</div>
 	</div>
 </ion-content>
 
 <style>
-	.burger-menu {
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		position: absolute;
-		top: 0;
-		width: 100%;
-		height: 263px;
-		background-color: #232e3c;
-		color: #d2d5d8;
-		font-size: 18px;
-		font-weight: 600;
-		z-index: 1;
-	}
-
-	.burger-menu-wrapper {
-		position: fixed;
-		top: 0;
-		left: 0;
-		right: 0;
-		bottom: 0;
-		background: rgba(35, 46, 60, 0.6);
-		z-index: 2;
-		opacity: 0;
-		visibility: hidden;
-		transition: all ease 0.4s;
-	}
-
-	.burger-menu-wrapper_open {
-		opacity: 1;
-		visibility: visible;
-	}
-
-	.close {
-		position: absolute;
-		right: 20px;
-		top: 20px;
-		width: 30px;
-		height: 30px;
-		background-image: url(IcMClose.svg);
-		background-color: transparent;
-	}
-
 	.wrapper {
-		padding: 50px 20px;
-		background: #53667b;
-		background-image: url(bg.png);
-		background-repeat: no-repeat;
-		background-position: top left;
-	}
-
-	.header {
-		display: flex;
-		align-items: center;
-		justify-content: space-between;
-		padding: 35px;
-		background: #232e3c;
-		color: #d2d5d8;
-		font-size: 24px;
-		font-weight: 700;
-		border-top-left-radius: 15px;
-		border-top-right-radius: 15px;
-	}
-
-	.burger {
-		width: 30px;
-		height: 30px;
-		background-image: url(IcMBurger.svg);
-		background-color: transparent;
-	}
-
-	.logo {
-		display: flex;
-		align-items: center;
-		gap: 20px;
-	}
-
-	.caption {
-		margin-top: 7px;
+		background-color: #232e3c;
 	}
 
 	.content {
-		padding: 15px;
-		background: #323e4f;
-		overflow-x: scroll;
-		border-bottom-left-radius: 15px;
-		border-bottom-right-radius: 15px;
+		margin: 10px 10px 0px 10px;
+		background-color: #323e4f;
+		border-radius: 4px;
 	}
 
-	.list {
-		border-radius: 0px 0px 20px 20px;
-		padding: 20px;
-	}
-
-	.content::-webkit-scrollbar {
-		width: 0px;
-		height: 0px;
-	}
-
-	.menu {
-		padding: 25px 20px;
+	.tabs {
 		display: grid;
-		grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
-		border-radius: 10px;
-		background: #232e3c;
+		grid-template-columns: repeat(5, 1fr);
+		padding: 25px 20px;
 	}
 
-	.menu button {
-		font-size: 18px;
-		color: #d2d5d8;
-		text-align: left;
+	.tabs-filled {
+		background: #384d64;
+	}
+
+	.hero-tabs {
+		padding: 9px 20px;
+	}
+
+	.tab {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		color: #fff;
+		font-size: 16px;
+	}
+
+	.tab button {
 		background: transparent;
+		color: #fff;
+		font-size: 16px;
 	}
 
-	.icon {
-		width: 40px;
-		height: 40px;
-		background-image: url(IcLStats.svg);
+	.tab-win {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: 3px;
 	}
 
-	@media (max-width: 780px) {
-		.menu {
-			width: 710px;
-			grid-template-columns: 250px 150px 100px 100px 100px;
-		}
+	.tab img {
+		width: 50px;
+		height: 50px;
+		border-radius: 50%;
+		object-fit: cover;
+	}
+
+	.subtitle {
+		font-size: 14px;
+		font-weight: 300;
 	}
 </style>
