@@ -2,6 +2,8 @@
 	import { goto } from '$app/navigation';
 	import { page } from '$app/stores';
 	import { HERO_ABOUT, HERO_STATS } from '../constants/routes';
+	import burger from '../icons/svg/M/IcMBurger.svg';
+	import back from '../icons/svg/M/IcMBack.svg';
 
 	let isBurgerOpen = false;
 
@@ -17,14 +19,22 @@
 
 <header class="header">
 	{#if isAboutPage}
-		<button on:click={() => goto(HERO_STATS)} class="button back"><span /></button>
+		<button
+			style="background-image: url({back});"
+			on:click={() => goto(HERO_STATS)}
+			class="button back"
+		/>
 	{:else}
 		<div class="hidden" />
 	{/if}
 
 	<div class="title">{isAboutPage ? 'About Hero' : 'Hero Stats'}</div>
 
-	<button on:click={() => openBurger(true)} class="button burger"><span /></button>
+	<button
+		style="background-image: url({burger});"
+		on:click={() => openBurger(true)}
+		class="button burger"
+	/>
 </header>
 
 <div
@@ -104,13 +114,5 @@
 		width: 26px;
 		height: 26px;
 		background-color: transparent;
-	}
-
-	.burger {
-		background-image: url(../IcMBurger.svg);
-	}
-
-	.back {
-		background-image: url(../IcMBack.svg);
 	}
 </style>
