@@ -2,9 +2,11 @@ name: Actions
 run-name: CI/CD
 on:
   push:
-    branches: [master]
+    branches:
+      - master
   pull_request:
-    branches: [master]
+    branches:
+      - master
 jobs:
   check-bats-version:
     runs-on: ubuntu-latest
