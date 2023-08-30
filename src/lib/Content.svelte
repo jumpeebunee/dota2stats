@@ -6,7 +6,7 @@
 
 <style>
 	.wrapper {
-		min-height: 100%;
+		min-height: 102%;
 		padding: 10px;
 		background-color: #232e3c;
 	}
