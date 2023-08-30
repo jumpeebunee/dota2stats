@@ -1,4 +1,8 @@
 <script lang="ts">
+	import { goto } from '$app/navigation';
+	import { page } from '$app/stores';
+	import { HERO_ABOUT, HERO_STATS } from '../constants/routes';
+
 	let isBurgerOpen = false;
 
 	const openBurger = (status: boolean) => {
@@ -7,11 +11,20 @@
 		}
 		isBurgerOpen = status;
 	};
+
+	$: isAboutPage = $page.route.id?.includes(HERO_ABOUT);
 </script>
 
 <header class="header">
-	<div class="title">Hero Stats</div>
-	<button on:click={() => openBurger(true)} class="button"><span /></button>
+	{#if isAboutPage}
+		<button on:click={() => goto(HERO_STATS)} class="button back"><span /></button>
+	{:else}
+		<div class="hidden" />
+	{/if}
+
+	<div class="title">{isAboutPage ? 'About Hero' : 'Hero Stats'}</div>
+
+	<button on:click={() => openBurger(true)} class="button burger"><span /></button>
 </header>
 
 <div
@@ -34,6 +47,11 @@
 </div>
 
 <style>
+	.hidden {
+		width: 26px;
+		height: 26px;
+	}
+
 	.wrapper {
 		position: fixed;
 		background: rgba(0, 0, 0, 0.5);
@@ -78,12 +96,21 @@
 		color: #fff;
 		font-size: 20px;
 		font-weight: 500;
+		margin-left: auto;
+		margin-right: auto;
 	}
 
 	.button {
-		width: 30px;
-		height: 30px;
-		background-image: url(IcMBurger.svg);
+		width: 26px;
+		height: 26px;
 		background-color: transparent;
+	}
+
+	.burger {
+		background-image: url(../IcMBurger.svg);
+	}
+
+	.back {
+		background-image: url(../IcMBack.svg);
 	}
 </style>
