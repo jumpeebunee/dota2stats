@@ -7,7 +7,6 @@
 
 	export let data: PageData;
 
-	let currentType = '';
 	let sortType: 'asc' | 'desc' = 'asc';
 
 	const types = ['BanPick', 'Pick', 'Ban', 'Win'];
@@ -16,7 +15,6 @@
 		sorted = sorted.sort(sortTypes[sort as keyof typeof sortTypes](sortType));
 
 		sortType = sortType === 'asc' ? 'desc' : 'asc';
-		currentType = sort;
 	};
 
 	$: sorted = data.heroes;

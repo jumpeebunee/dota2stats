@@ -1,6 +1,5 @@
 <script lang="ts">
 	import Content from '$lib/Content.svelte';
-	import { onMount } from 'svelte';
 	import { IMAGE_URL } from '../../../constants/images';
 	import type { PageData } from './$types';
 
