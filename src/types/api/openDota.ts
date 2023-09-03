@@ -41,3 +41,25 @@ export interface Hero {
 	null_pick: number;
 	null_win: number;
 }
+
+export type IRank = {
+	account_id: number;
+	score: number;
+	steamid: string;
+	avatar: string;
+	avatarmedium: string;
+	avatarfull: string;
+	profileurl: string;
+	personaname: string;
+	last_login: string;
+	full_history_time: string;
+	cheese: number;
+	fh_unavailable: boolean;
+	loccountrycode: string;
+	rank_tier: number;
+};
+
+export interface Rankings {
+	hero_id: number;
+	rankings: IRank[];
+}
