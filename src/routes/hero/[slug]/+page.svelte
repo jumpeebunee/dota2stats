@@ -2,12 +2,15 @@
 	import Content from '$lib/Content.svelte';
 	import { IMAGE_URL } from '../../../constants/images';
 	import type { PageData } from './$types';
+	import Raiting from './elements/raiting.svelte';
 
 	export let data: PageData;
 
 	let y = 0;
 
 	const hero = data.heroes.find((hero) => hero.id === +data.id);
+
+	const isUpdated = false;
 </script>
 
 <svelte:window bind:scrollY={y} />
@@ -26,6 +29,16 @@
 						<li class="role">{role}</li>
 					{/each}
 				</ul>
+			</div>
+
+			{#if isUpdated}
+				<div class="stats">
+					<button>stats</button>
+				</div>
+			{/if}
+
+			<div class="raitings">
+				<Raiting players={data.raiting} />
 			</div>
 		</div>
 	</Content>
@@ -66,5 +79,24 @@
 
 	.role_active {
 		color: #fff;
+	}
+
+	.stats {
+		display: flex;
+		align-items: center;
+		margin-top: 20px;
+		gap: 10px;
+	}
+
+	.stats button {
+		padding: 8px 40px;
+		color: #fff;
+		font-size: 16px;
+		background-color: transparent;
+		border: solid 1px #fff;
+	}
+
+	.raitings {
+		margin-top: 30px;
 	}
 </style>
