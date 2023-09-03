@@ -1,38 +1,53 @@
-# create-svelte
+# Dota 2 Statistics
+## Описание
+Dota2 Stats Statistics - это открытое приложение для всех поклонников Dota 2, которое позволяет вам легко получать доступ к статистике игры, информации о героях и лучших игроках. Это приложение использует API OpenDota для получения данных о матчах, героях и игроках, что позволяет вам узнать все необходимые сведения для улучшения вашей игры.
 
-Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/master/packages/create-svelte).
+## Основные функции
+- Просмотр статистики героев: Вы можете получить доступ к подробной статистике всех героев Dota 2, включая их базовую статистику, способности и многое другое.
 
-## Creating a project
+- Просмотр статистики игроков: Узнайте о лучших игроках Dota 2 и их винрейте на разных героях.
 
-If you're seeing this, you've probably already done this step. Congrats!
+- Поиск матчей: Вы можете искать матчи, в которых участвовали определенные игроки, и анализировать их статистику.
+
+## Установка
+Чтобы начать использовать Dota 2 Statistics, скачайте приложение на свой [Android](https://play.google.com/store/apps/details?id=app.ionic.io) или выполните следующие шаги:
+
+1. Клонируйте репозиторий с приложением на свой локальный компьютер:
 
 ```bash
-# create a new project in the current directory
-npm create svelte@latest
-
-# create a new project in my-app
-npm create svelte@latest my-app
+git clone https://github.com/yourusername/dota2-stats-viewer.git
 ```
-
-## Developing
-
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
-
+2. Перейдите в каталог приложения:
+```bash
+cd dota2-stats-viewer
+```
+4. Установите зависимости:
+```bash
+npm install
+```
+6. Запустите приложение:
 ```bash
 npm run dev
-
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
 ```
+8. Откройте ваш браузер и перейдите по адресу http://localhost:3000 для доступа к Dota 2 Statistics.
 
-## Building
-
-To create a production version of your app:
-
+## Вклад в развитие
+Мы приветствуем вклад в развитие Dota 2 Statistics. Если у вас есть идеи по улучшению приложения или желание исправить какие-либо ошибки, вы можете внести свой вклад, следуя этим шагам:
+1. Форкните репозиторий (создайте свою копию репозитория на GitHub).
+2. Создайте новую ветку для своих изменений:
 ```bash
-npm run build
+git checkout -b feature/новая_функция
 ```
+3. Внесите необходимые изменения и создайте коммиты:
+```bash
+git commit -m "Добавлена новая функция"
+```
+4. Отправьте ваши изменения на GitHub:
+```bash
+git push origin feature/новая_функция
+```
+5. Создайте Pull Request (PR) в оригинальном репозитории.
 
-You can preview the production build with `npm run preview`.
+Мы будем рады рассмотреть ваши PR и внести их в основной проект.
 
-> To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
+Спасибо, что выбрали Dota 2 Statistics! Если у вас есть вопросы или предложения, не стесняйтесь связаться с нами по адресу jumpeebunee@gmail.com. Мы надеемся, что приложение будет полезным для вас и вашей игровой карьеры в Dota 2. Удачи в игре!
