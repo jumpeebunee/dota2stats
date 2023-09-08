@@ -1,9 +1,9 @@
 <script lang="ts">
-	import { goto } from '$app/navigation';
 	import { page } from '$app/stores';
-	import { HERO_ABOUT, HERO_STATS } from '../constants/routes';
-	import burger from '../icons/svg/M/IcMBurger.svg';
-	import back from '../icons/svg/M/IcMBack.svg';
+
+	import { HERO_ABOUT, HERO_STATS, SKILL_PAGE } from '../../constants/routes';
+	import IcMBurger from '$lib/icons/IcMBurger.svg';
+	import BackButton from './elements/backButton.svelte';
 
 	let isBurgerOpen = false;
 
@@ -15,15 +15,14 @@
 	};
 
 	$: isAboutPage = $page.route.id?.includes(HERO_ABOUT);
+	$: isSkillsPage = $page.route.id?.includes(SKILL_PAGE);
 </script>
 
 <header class="header">
 	{#if isAboutPage}
-		<button
-			style="background-image: url({back});"
-			on:click={() => goto(HERO_STATS)}
-			class="button back"
-		/>
+		<BackButton path={HERO_STATS} />
+	{:else if isSkillsPage}
+		<BackButton path={`${HERO_ABOUT}${$page.params.slug}`} />
 	{:else}
 		<div class="hidden" />
 	{/if}
@@ -31,10 +30,10 @@
 	<div class="title">{isAboutPage ? 'About Hero' : 'Hero Stats'}</div>
 
 	<button
-		style="background-image: url({burger});"
+		style="background-image: url({IcMBurger});"
 		on:click={() => openBurger(true)}
-		class="button burger"
-	/>
+		class="button burger"><span /></button
+	>
 </header>
 
 <div

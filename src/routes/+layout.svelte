@@ -8,13 +8,12 @@
 
 	import '../theme/variables.css';
 	import '../theme/normolize.css';
-	import Header from '$lib/Header.svelte';
+	import Header from '$lib/header/Header.svelte';
 </script>
 
 <ion-app>
-	<ion-content>
+	<div>
 		<Header />
 		<slot />
-	</ion-content>
+	</div>
 </ion-app>
-z
