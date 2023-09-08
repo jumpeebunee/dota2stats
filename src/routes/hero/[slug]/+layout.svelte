@@ -73,25 +73,6 @@
 		color: #fff;
 	}
 
-	.stats {
-		display: flex;
-		align-items: center;
-		margin-top: 20px;
-		gap: 10px;
-	}
-
-	.stats button {
-		padding: 8px 40px;
-		color: #fff;
-		font-size: 16px;
-		background-color: transparent;
-		border: solid 1px #fff;
-	}
-
-	.raitings {
-		margin-top: 30px;
-	}
-
 	.btn {
 		margin-top: 20px;
 		padding: 10px;

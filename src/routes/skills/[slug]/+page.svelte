@@ -1,10 +1,7 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import type { PageData } from './$types';
 	import { scrollToTop } from '../../../helpers/scrollToTop';
 	import Content from '$lib/Content.svelte';
-
-	export let data: PageData;
 
 	onMount(() => scrollToTop());
 </script>
