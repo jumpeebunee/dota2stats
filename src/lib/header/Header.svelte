@@ -8,8 +8,12 @@
 	let isBurgerOpen = false;
 
 	const openBurger = (status: boolean) => {
+		const ion = document.querySelector('.ion-page');
+
 		if (status) {
-			document.body.style.position = 'fixed';
+			ion?.classList.add('ion-page_unactive');
+		} else {
+			ion?.classList.remove('ion-page_unactive');
 		}
 		isBurgerOpen = status;
 	};
@@ -71,6 +75,7 @@
 		visibility: hidden;
 		opacity: 0;
 		transition: all ease 0.4s;
+		z-index: 10;
 	}
 
 	.wrapper_open {

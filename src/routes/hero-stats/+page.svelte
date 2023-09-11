@@ -3,12 +3,15 @@
 	import { onMount } from 'svelte';
 	import { IMAGE_URL } from '../../constants/images';
 	import { HERO_ABOUT } from '../../constants/routes';
-	import type { PageData } from './$types';
 	import { sortTypes } from './helpers/sortTypes';
 	import { scrollToTop } from '../../helpers/scrollToTop';
+	import { heroStore } from '../../store';
+	import axios from 'axios';
+	import { API_URL } from '../../constants/api';
+	import type { Hero } from '../../types/api/openDota';
+	import Skeleton from '$lib/components/Skeleton.svelte';
 
-	export let data: PageData;
-
+	let isLoading = false;
 	let sortType: 'asc' | 'desc' = 'asc';
 
 	const types = ['BanPick', 'Pick', 'Ban', 'Win'];
@@ -19,41 +22,73 @@
 		sortType = sortType === 'asc' ? 'desc' : 'asc';
 	};
 
-	onMount(() => scrollToTop());
+	onMount(async () => {
+		scrollToTop();
 
-	$: sorted = data.heroes;
+		if (!$heroStore.length) {
+			try {
+				const res = await axios.get(`${API_URL}heroStats`);
+				$heroStore = res.data as Hero[];
+			} catch (e) {
+			} finally {
+				isLoading = true;
+			}
+		} else {
+			isLoading = true;
+		}
+	});
+
+	$: sorted = $heroStore;
 </script>
 
-<Content>
-	<div class="tabs">
-		<div class="tab">Hero</div>
+{#if isLoading}
+	<Content>
+		<div class="tabs">
+			<div class="tab">Hero</div>
 
-		{#each types as type}
-			<div class="tab"><button on:click={() => changeSort(type)}>{type}</button></div>
-		{/each}
-	</div>
+			{#each types as type}
+				<div class="tab"><button on:click={() => changeSort(type)}>{type}</button></div>
+			{/each}
+		</div>
 
-	{#each sorted as hero, i}
-		<a href="{HERO_ABOUT}{hero.id}" class:tabs-filled={i % 2 === 0} class="tabs hero-tabs">
-			<div class="tab">
-				<img src="{IMAGE_URL}{hero.img}" alt="" />
-			</div>
-
-			<div class="tab">{(hero.pro_pick || 0) + (hero.pro_ban || 0)}</div>
-			<div class="tab">{hero.pro_pick}</div>
-			<div class="tab">{hero.pro_ban}</div>
-
-			<div class="tab tab-win">
-				<div>
-					{Math.floor((hero.pro_win / hero.pro_pick) * 100)}%
+		{#each sorted as hero, i}
+			<a href="{HERO_ABOUT}{hero.id}" class:tabs-filled={i % 2 === 0} class="tabs hero-tabs">
+				<div class="tab">
+					<img src="{IMAGE_URL}{hero.img}" alt="" />
 				</div>
-				<div class="subtitle">{hero.pro_win} wins</div>
-			</div>
-		</a>
-	{/each}
-</Content>
+
+				<div class="tab">{(hero.pro_pick || 0) + (hero.pro_ban || 0)}</div>
+				<div class="tab">{hero.pro_pick}</div>
+				<div class="tab">{hero.pro_ban}</div>
+
+				<div class="tab tab-win">
+					<div>
+						{Math.floor((hero.pro_win / hero.pro_pick) * 100)}%
+					</div>
+					<div class="subtitle">{hero.pro_win} wins</div>
+				</div>
+			</a>
+		{/each}
+	</Content>
+{:else}
+	<Content>
+		<div class="skeletons">
+			<Skeleton width="100%" height="69px" />
+			<Skeleton width="100%" height="69px" />
+			<Skeleton width="100%" height="69px" />
+			<Skeleton width="100%" height="69px" />
+		</div>
+	</Content>
+{/if}
 
 <style>
+	.skeletons {
+		padding: 20px 10px;
+		display: flex;
+		flex-direction: column;
+		gap: 10px;
+	}
+
 	.tabs {
 		display: grid;
 		grid-template-columns: repeat(5, 1fr);
