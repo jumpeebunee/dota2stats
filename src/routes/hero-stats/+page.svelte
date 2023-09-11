@@ -30,6 +30,7 @@
 				const res = await axios.get(`${API_URL}heroStats`);
 				$heroStore = res.data as Hero[];
 			} catch (e) {
+				console.log(e);
 			} finally {
 				isLoading = true;
 			}
