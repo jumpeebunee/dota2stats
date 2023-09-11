@@ -1,9 +1,11 @@
 <script lang="ts">
 	import Content from '$lib/Content.svelte';
+	import { onMount } from 'svelte';
 	import { IMAGE_URL } from '../../constants/images';
 	import { HERO_ABOUT } from '../../constants/routes';
 	import type { PageData } from './$types';
 	import { sortTypes } from './helpers/sortTypes';
+	import { scrollToTop } from '../../helpers/scrollToTop';
 
 	export let data: PageData;
 
@@ -16,6 +18,8 @@
 
 		sortType = sortType === 'asc' ? 'desc' : 'asc';
 	};
+
+	onMount(() => scrollToTop());
 
 	$: sorted = data.heroes;
 </script>

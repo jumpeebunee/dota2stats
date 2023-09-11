@@ -17,6 +17,10 @@
 	box-sizing: border-box;
 }
 
+.ion-page {
+	overflow-y: scroll !important;
+}
+
 :focus,
 :active {
 	outline: none;
