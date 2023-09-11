@@ -17,6 +17,10 @@
 	box-sizing: border-box;
 }
 
+body .ion-page_unactive {
+	overflow-y: hidden !important;
+}
+
 .ion-page {
 	overflow-y: scroll !important;
 }
