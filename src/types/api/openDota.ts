@@ -59,6 +59,26 @@ export type IRank = {
 	rank_tier: number;
 };
 
+export type IBenchs = {
+	gold_per_min: IBench[];
+	xp_per_min: IBench[];
+	kills_per_min: IBench[];
+	last_hits_per_min: IBench[];
+	hero_damage_per_min: IBench[];
+	hero_healing_per_min: IBench[];
+	tower_damage: IBench[];
+};
+
+export type IBench = {
+	percentile: number;
+	value: number;
+};
+
+export interface Benchmarks {
+	hero_id: number;
+	result: IBenchs;
+}
+
 export interface Rankings {
 	hero_id: number;
 	rankings: IRank[];

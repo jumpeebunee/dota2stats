@@ -6,8 +6,8 @@
 	$: currentUrl = splittedUrl.length === 4 ? splittedUrl.pop() : '';
 
 	const items = [
-		{ title: 'Rankings', value: '' }
-		// { title: 'Benchmarks', value: 'benchmarks' }
+		{ title: 'Rankings', value: '' },
+		{ title: 'Benchmarks', value: 'benchmarks' }
 	];
 </script>
 
